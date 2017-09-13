@@ -26,7 +26,7 @@ let rom_to_hira_table = {
   \   ',': ['、', ''],
   \ }
 
-function! seg#rom_to_hira_tree_rec(table, tree, word, index)
+function! s:add_branch(table, tree, word, index)
   if strlen(a:word) <= a:index
     return 0
   endif
@@ -39,13 +39,13 @@ function! seg#rom_to_hira_tree_rec(table, tree, word, index)
     let a:tree[symbol]['hira'] = a:table[prefix][0]
     let a:tree[symbol]['next'] = a:table[prefix][1]
   endif
-  return seg#rom_to_hira_tree_rec(a:table, a:tree[symbol]['child'], a:word, a:index + 1)
+  return s:add_branch(a:table, a:tree[symbol]['child'], a:word, a:index + 1)
 endfunction
 
 function! seg#rom_to_hira_tree(table)
   let tree = {}
   for key in keys(a:table)
-    call seg#rom_to_hira_tree_rec(a:table, tree, key, 0)
+    call s:add_branch(a:table, tree, key, 0)
   endfor
   return tree
 endfunction
