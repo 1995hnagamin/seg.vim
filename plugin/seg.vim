@@ -14,6 +14,19 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+let rom_to_hira_table = {
+  \   'fu': ['う', ''],
+  \   'se': ['せ', ''],
+  \   'seg': ['せい', ''],
+  \   'ss': ['っ', 's'],
+  \   'syo': ['しょ', ''],
+  \   't': ['っ', ''],
+  \   'xa': ['は', ''],
+  \   '.': ['。', ''],
+  \   ',': ['、', ''],
+  \ }
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
