@@ -1,7 +1,7 @@
 " seg.vim
 " Version: 0.0.1
 " Author: NAGAMINE Hideaki
-" License: GPLv3
+" License: NEW BSD LICENSE
 
 scriptencoding utf-8
 
