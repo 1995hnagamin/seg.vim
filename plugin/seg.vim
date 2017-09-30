@@ -50,6 +50,12 @@ function! seg#rom_to_hira_tree(table)
     return tree
 endfunction
 
+function! seg#default_mapped_keys()
+    return split(
+                \ 'abcdefghijklmnopqrstuvwxyz',
+                \ '\zs'
+                \)
+endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
