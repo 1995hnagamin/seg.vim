@@ -85,6 +85,23 @@ let s:ascii_state = {
             \ 'move_to_zenei' : function('s:ascii_state_move_to_zenei'),
             \ }
 
+function! s:hira_state_input_char(ch)
+    let b:seg['preedit'] .= a:ch
+endfunction
+
+function! s:hira_state_move_to_hira()
+endfunction
+
+function! s:hira_state_move_to_ascii()
+endfunction
+
+function! s:hira_state_switch_hira_kana()
+endfunction
+
+function! s:hira_state_move_to_zenei()
+endfunction
+
+
 function! seg#default_mapped_keys()
     return split(
                 \ 'abcdefghijklmnopqrstuvwxyz',
