@@ -69,6 +69,11 @@ function! seg#map_keys()
     endfor
 endfunction
 
+function seg#call_command(cmd, key)
+    let Fn = b:seg['state'][a:cmd]
+    return Fn({'key' : a:key})
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
