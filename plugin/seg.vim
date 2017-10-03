@@ -74,6 +74,17 @@ function seg#call_command(cmd, key)
     return Fn({'key' : a:key})
 endfunction
 
+function! seg#init()
+    if exists('b:seg')
+        return
+    endif
+    let b:seg = {
+                \ 'state' : s:ascii_state,
+                \ 'preedit' : ''
+                \ }
+    call seg#map_keys()
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
