@@ -50,6 +50,38 @@ function! seg#rom_to_hira_tree(table)
     return tree
 endfunction
 
+function! s:ascii_state_input_char(arg)
+    return toupper(a:arg['key'])
+endfunction
+
+function! s:ascii_state_move_to_hira(arg)
+    let b:seg['state'] = s:hira_state
+    return ""
+endfunction
+
+function! s:ascii_state_move_to_ascii(arg)
+    call s:ascii_state_input_char({'key' : 'l'})
+    return ""
+endfunction
+
+function! s:ascii_state_switch_hira_kana(arg)
+    call s:ascii_state_input_char({'key' : 'q'})
+    return ""
+endfunction
+
+function! s:ascii_state_move_to_zenei(arg)
+    call s:ascii_state_input_char('L')
+    return ""
+endfunction
+
+let s:ascii_state = {
+            \ 'input_char' : function('s:ascii_state_input_char'),
+            \ 'move_to_hira' : function('s:ascii_state_move_to_hira'),
+            \ 'move_to_ascii' : function('s:ascii_state_move_to_ascii'),
+            \ 'switch_hira_kana' : function('s:ascii_state_switch_hira_kana'),
+            \ 'move_to_zenei' : function('s:ascii_state_move_to_zenei'),
+            \ }
+
 function! seg#default_mapped_keys()
     return split(
                 \ 'abcdefghijklmnopqrstuvwxyz',
