@@ -5,14 +5,17 @@
 
 scriptencoding utf-8
 
+" Load Once {{{
 if exists('g:loaded_seg')
     finish
 endif
 let g:loaded_seg = 1
+" }}}
 
+" Save 'cpoptions' {{{
 let s:save_cpo = &cpo
 set cpo&vim
-
+" }}}
 
 let rom_to_hira_table = {
             \   'fu': ['う', ''],
@@ -117,7 +120,9 @@ function! seg#init()
     call seg#map_keys()
 endfunction
 
+" Restore 'cpoptions' {{{
 let &cpo = s:save_cpo
 unlet s:save_cpo
+" }}}
 
 " vim:set et:
