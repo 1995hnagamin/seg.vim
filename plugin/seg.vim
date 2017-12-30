@@ -53,6 +53,8 @@ function! seg#rom_to_hira_tree(table)
     return tree
 endfunction
 
+let s:rom_tree = seg#rom_to_hira_tree(rom_to_hira_table)
+
 function! s:ascii_state_input_char(arg)
     return toupper(a:arg['key'])
 endfunction
