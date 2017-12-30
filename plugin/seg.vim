@@ -104,6 +104,7 @@ function! s:hira_state_input_char(ch)
         " invalid input
         let b:seg['preedit'] = input
         let b:seg['rom_tree'] = s:rom_tree
+        echo 'A:' . b:seg['preedit']
         return ""
     endif
 
@@ -111,10 +112,12 @@ function! s:hira_state_input_char(ch)
         let result = b:seg['rom_tree'][input]['hira']
         let b:seg['preedit'] = b:seg['rom_tree'][input]['next']
         let b:seg['rom_tree'] = s:rom_tree
+        echo 'B:' . b:seg['preedit']
         return result
     endif
 
     let b:seg['rom_tree'] = b:seg['rom_tree'][input]['child']
+    echo 'C:' . b:seg['preedit'] . '(' . join(keys(b:seg['rom_tree']), '/') . ')'
     return ""
 endfunction
 
