@@ -34,10 +34,14 @@ function! s:add_branch(table, tree, word, index)
         return 0
     endif
     let symbol = a:word[a:index]
-    if !has_key(a:tree, symbol)
-        let a:tree[symbol] = { 'child': {} }
-    endif
     let prefix = a:word[0:(a:index)]
+    if !has_key(a:tree, symbol)
+        let a:tree[symbol] = {
+                    \   'hira': '',
+                    \   'next': prefix,
+                    \   'child': {},
+                    \ }
+    endif
     if has_key(a:table, prefix)
         let a:tree[symbol]['hira'] = a:table[prefix][0]
         let a:tree[symbol]['next'] = a:table[prefix][1]
