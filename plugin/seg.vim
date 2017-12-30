@@ -61,6 +61,7 @@ endfunction
 
 function! s:ascii_state_move_to_hira(arg)
     let b:seg['state'] = s:hira_state
+    let b:seg['rom_tree'] = s:rom_tree
     return ""
 endfunction
 
@@ -138,6 +139,7 @@ function! seg#init()
     endif
     let b:seg = {
                 \ 'state' : s:ascii_state,
+                \ 'rom_tree' : {},
                 \ 'preedit' : ''
                 \ }
     call seg#map_keys()
