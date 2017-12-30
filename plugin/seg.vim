@@ -153,12 +153,12 @@ function! seg#map_keys()
     for key in keys
         let n = char2nr(key)
         let char = "<Char-" . n . ">"
-        execute "lmap <buffer> " . char . " <C-r>=seg#call_command('input_char', '" . key . "')<CR>"
+        execute "lmap <buffer> <silent> " . char . " <C-r>=seg#call_command('input_char', '" . key . "')<CR>"
         unlet char
         unlet n
         unlet key
     endfor
-    lmap <buffer> <C-j> <C-r>=seg#call_command('move_to_hira', '')<CR>
+    lmap <buffer> <silent> <C-j> <C-r>=seg#call_command('move_to_hira', '')<CR>
 endfunction
 
 function seg#call_command(cmd, key)
