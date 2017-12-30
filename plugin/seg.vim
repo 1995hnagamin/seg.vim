@@ -130,6 +130,13 @@ endfunction
 function! s:hira_state_move_to_zenei()
 endfunction
 
+let s:hira_state = {
+            \ 'input_char' : function('s:hira_state_input_char'),
+            \ 'move_to_hira' : function('s:hira_state_move_to_hira'),
+            \ 'move_to_ascii' : function('s:hira_state_move_to_ascii'),
+            \ 'switch_hira_kana' : function('s:hira_state_switch_hira_kana'),
+            \ 'move_to_zenei' : function('s:hira_state_move_to_zenei'),
+            \ }
 
 function! seg#default_mapped_keys()
     return split(
