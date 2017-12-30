@@ -155,6 +155,7 @@ function! seg#map_keys()
         unlet n
         unlet key
     endfor
+    lmap <buffer> <C-j> <C-r>=seg#call_command('move_to_hira', '')<CR>
 endfunction
 
 function seg#call_command(cmd, key)
