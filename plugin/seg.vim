@@ -100,11 +100,18 @@ function! s:hira_state_input_char(ch)
     let input = a:ch['key']
     let b:seg['preedit'] .= input
 
-    if !has_key(b:seg['rom_tree'], input)
+    if !has_key(b:seg['rom_tree'], input) && !has_key(s:rom_tree, input)
         " invalid input
-        let b:seg['preedit'] = input
+        let b:seg['preedit'] = ''
         let b:seg['rom_tree'] = s:rom_tree
         echo 'A:' . b:seg['preedit']
+        return ""
+    endif
+
+    if !has_key(b:seg['rom_tree'], input)
+        let b:seg['preedit'] = input
+        let b:seg['rom_tree'] = s:rom_tree[input]['child']
+        echo 'D:' . b:seg['preedit']
         return ""
     endif
 
