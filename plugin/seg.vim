@@ -87,6 +87,10 @@ let s:ascii_state = {
             \ 'move_to_zenei' : function('s:ascii_state_move_to_zenei'),
             \ }
 
+function! s:is_leaf(tree)
+    return a:tree['child'] == {}
+endfunction
+
 function! s:hira_state_input_char(ch)
     let b:seg['preedit'] .= a:ch
 endfunction
