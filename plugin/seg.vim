@@ -97,7 +97,25 @@ function! s:is_leaf(tree)
 endfunction
 
 function! s:hira_state_input_char(ch)
-    let b:seg['preedit'] .= a:ch
+    let input = a:ch['key']
+    let b:seg['preedit'] .= input
+
+    if !has_key(b:seg['rom_tree'], input)
+        " invalid input
+        let b:seg['preedit'] = input
+        let b:seg['rom_tree'] = s:rom_tree
+        return ""
+    endif
+
+    if s:is_leaf(b:seg['rom_tree'][input])
+        let result = b:seg['rom_tree'][input]['hira']
+        let b:seg['preedit'] = b:seg['rom_tree'][input]['next']
+        let b:seg['rom_tree'] = s:rom_tree
+        return result
+    endif
+
+    let b:seg['rom_tree'] = b:seg['rom_tree'][input]['child']
+    return ""
 endfunction
 
 function! s:hira_state_move_to_hira()
