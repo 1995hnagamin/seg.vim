@@ -275,6 +275,10 @@ function seg#call_command(cmd, key)
     return Fn({'key' : a:key})
 endfunction
 
+function seg#terminate_char()
+    let result = b:seg['rom_tree']
+endfunction
+
 function! seg#init()
     if exists('b:seg')
         return
