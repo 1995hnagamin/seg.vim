@@ -57,6 +57,18 @@ function! seg#default_mapped_keys()
                 \)
 endfunction
 
+function! seg#map_keys()
+    let keys = seg#default_mapped_keys()
+    for key in keys
+        let n = char2nr(key)
+        let char = "<Char-" . n . ">"
+        execute "lmap <buffer> " . char . " <C-r>=seg#call_command('input_char', '" . key . "')<CR>"
+        unlet char
+        unlet n
+        unlet key
+    endfor
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
