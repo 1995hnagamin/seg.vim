@@ -268,6 +268,7 @@ function! seg#map_keys()
         unlet key
     endfor
     lmap <buffer> <silent> <C-j> <C-r>=seg#call_command('move_to_hira', '')<CR>
+    lmap <buffer> <silent> $ <C-r>=seg#terminate_char()<CR>
 endfunction
 
 function seg#call_command(cmd, key)
