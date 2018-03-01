@@ -10,12 +10,12 @@ if exists('g:loaded_seg')
     finish
 endif
 let g:loaded_seg = 1
-" }}}
+" }}} Load Once
 
 " Save 'cpoptions' {{{
 let s:save_cpo = &cpo
 set cpo&vim
-" }}}
+" }}} Save 'cpoptions'
 
 let rom_to_hira_table = {
             \   'vo': ['を', ''],
@@ -149,7 +149,7 @@ function! s:add_branch(table, tree, word, index)
         let a:tree[symbol]['next'] = a:table[prefix][1]
     endif
     return s:add_branch(a:table, a:tree[symbol]['child'], a:word, a:index + 1)
-endfunction
+endfunction " s:add_branch
 
 function! seg#rom_to_hira_tree(table)
     let tree = {}
@@ -157,34 +157,34 @@ function! seg#rom_to_hira_tree(table)
         call s:add_branch(a:table, tree, key, 0)
     endfor
     return tree
-endfunction
+endfunction " seg#rom_to_hira_tree
 
 let s:rom_tree = seg#rom_to_hira_tree(rom_to_hira_table)
 
 function! s:ascii_state_input_char(arg)
     return toupper(a:arg['key'])
-endfunction
+endfunction " s:ascii_state_input_char
 
 function! s:ascii_state_move_to_hira(arg)
     let b:seg['state'] = s:hira_state
     let b:seg['rom_tree'] = s:rom_tree
     return ""
-endfunction
+endfunction " s:ascii_state_move_to_hira
 
 function! s:ascii_state_move_to_ascii(arg)
     call s:ascii_state_input_char({'key' : 'l'})
     return ""
-endfunction
+endfunction " s:ascii_state_move_to_ascii
 
 function! s:ascii_state_switch_hira_kana(arg)
     call s:ascii_state_input_char({'key' : 'q'})
     return ""
-endfunction
+endfunction " s:ascii_state_switch_hira_kana
 
 function! s:ascii_state_move_to_zenei(arg)
     call s:ascii_state_input_char('L')
     return ""
-endfunction
+endfunction " s:ascii_state_move_to_zenei
 
 let s:ascii_state = {
             \ 'input_char' : function('s:ascii_state_input_char'),
@@ -196,7 +196,7 @@ let s:ascii_state = {
 
 function! s:is_leaf(tree)
     return a:tree['child'] == {}
-endfunction
+endfunction " s:is_leaf
 
 function! s:hira_state_input_char(ch)
     let input = a:ch['key']
@@ -228,19 +228,19 @@ function! s:hira_state_input_char(ch)
     let b:seg['rom_tree'] = b:seg['rom_tree'][input]['child']
     echo 'C:' . b:seg['preedit'] . '(' . join(keys(b:seg['rom_tree']), '/') . ')'
     return ""
-endfunction
+endfunction " s:hira_state_input_char
 
 function! s:hira_state_move_to_hira()
-endfunction
+endfunction " s:hira_state_move_to_hira
 
 function! s:hira_state_move_to_ascii()
-endfunction
+endfunction " s:hira_state_move_to_ascii
 
 function! s:hira_state_switch_hira_kana()
-endfunction
+endfunction " s:hira_state_switch_hira_kana
 
 function! s:hira_state_move_to_zenei()
-endfunction
+endfunction " s:hira_state_move_to_zenei
 
 let s:hira_state = {
             \ 'input_char' : function('s:hira_state_input_char'),
@@ -255,7 +255,7 @@ function! seg#default_mapped_keys()
                 \ 'abcdefghijklmnopqrstuvwxyz',
                 \ '\zs'
                 \)
-endfunction
+endfunction " seg#default_mapped_keys
 
 function! seg#map_keys()
     let keys = seg#default_mapped_keys()
@@ -269,16 +269,16 @@ function! seg#map_keys()
     endfor
     lmap <buffer> <silent> <C-j> <C-r>=seg#call_command('move_to_hira', '')<CR>
     lmap <buffer> <silent> $ <C-r>=seg#terminate_char()<CR>
-endfunction
+endfunction " seg#map_keys
 
 function seg#call_command(cmd, key)
     let Fn = b:seg['state'][a:cmd]
     return Fn({'key' : a:key})
-endfunction
+endfunction " seg#call_command
 
 function seg#terminate_char()
     let result = b:seg['rom_tree']
-endfunction
+endfunction " seg#terminate_char
 
 function! seg#init()
     if exists('b:seg')
@@ -290,11 +290,11 @@ function! seg#init()
                 \ 'preedit' : ''
                 \ }
     call seg#map_keys()
-endfunction
+endfunction " seg#init
 
 " Restore 'cpoptions' {{{
 let &cpo = s:save_cpo
 unlet s:save_cpo
-" }}}
+" }}} Restore 'cpoptions'
 
 " vim:set et:
